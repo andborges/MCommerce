@@ -1,0 +1,44 @@
+<mbl-page>
+	<div class="topcoat-navigation-bar">
+		<div class="topcoat-navigation-bar__item left quarter">
+		</div>
+		<div class="topcoat-navigation-bar__item center half">
+			<h1 class="topcoat-navigation-bar__title">Loja Virtual</h1>
+		</div>
+		<div class="topcoat-navigation-bar__item right quarter">
+			<div class="topcoat-navigation-bar__button" data-badge="{{shoppingCart.itens.length}}" ng-class="{badge1: shoppingCart.itens.length > 0}" ng-click="mbl.screen.snapper.open('right')">
+				<span class="fa fa-lg fa-shopping-cart"></span>
+				<span class="fa fa-chevron-right"></span>
+			</div>
+		</div>
+	</div>
+
+	<mbl-page-content>
+		<div class="topcoat-list__container" ng-show="ready">
+			<div id="showcase">
+				<!-- <div style="padding: 10px">
+					<form ng-submit="search()">
+						<input type="search" ng-model="search.term" placeholder="Pesquisar" class="topcoat-search-input" style="width: 100%">
+						<input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+					</form>
+				</div> -->
+				
+				<!-- <ul class="topcoat-list">
+					<li class="topcoat-list__item" ng-repeat="product in products" ng-click="showProduct(product.Id)">
+						<span class="fa pull-left fa-2x fa-barcode"></span>
+						<div class="productInfo">
+							<div>{{product.Name}}</div>
+							<div class="productPrice">R$ {{product.Price}}</div>
+						</div>
+						<span class="fa pull-right fa-chevron-right" style="margin-top: 10px"></span>
+					</li>
+					<li class="topcoat-list__item" ng-hide="products.length > 0">Não foram encontrados produtos</li>
+				</ul> -->
+
+				<section class="center" style="padding: 8px">
+					<button class="topcoat-button--cta" ng-click="qrcode()">Escanear QR Code</button>
+				</section>
+			</div>
+		</div>
+	</mbl-page-content>
+</mbl-page>

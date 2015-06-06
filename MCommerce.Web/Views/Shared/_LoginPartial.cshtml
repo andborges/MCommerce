@@ -1,0 +1,25 @@
+﻿@using MCommerce.Application.Resources
+
+@model MCommerce.Domain.ApplicationUser
+
+@if (Request.IsAuthenticated && Model != null)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink(Texts.Welcome + Model.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { title = Labels.ManageAccount })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">@Labels.LogOff</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        @*<li>@Html.ActionLink(Labels.Register, "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
+        <li>@Html.ActionLink(Labels.LogIn, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

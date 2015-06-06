@@ -1,0 +1,70 @@
+<mbl-page>
+	<div class="topcoat-navigation-bar">
+		<div class="topcoat-navigation-bar__item left quarter">
+			<div class="topcoat-navigation-bar__button" ng-click="mbl.screen.back()"><span class="fa fa-chevron-left"></span> Voltar</div>
+		</div>
+		<div class="topcoat-navigation-bar__item center half">
+			<h1 class="topcoat-navigation-bar__title">Loja Virtual</h1>
+		</div>
+		<div class="topcoat-navigation-bar__item right quarter">
+			<div class="topcoat-navigation-bar__button" data-badge="{{shoppingCart.itens.length}}" ng-class="{badge1: shoppingCart.itens.length > 0}" ng-click="mbl.screen.snapper.open('right')">
+				<span class="fa fa-lg fa-shopping-cart"></span>
+				<span class="fa fa-chevron-right"></span>
+			</div>
+		</div>
+	</div>
+
+	<mbl-page-content>
+		<div id="checkout">
+			<div id="checkoutheader">
+				<h3>
+					Selecione o endereço e o meio de pagamento:
+				</h3>
+
+				<div id="authMessage">{{message}}</div>
+			</div>
+
+			<form name="checkoutForm" ng-submit="checkout()" novalidate>
+				<input type="hidden" ng-model="newCheckout.address" required="required" />
+				<input type="hidden" ng-model="newCheckout.paymentMethodType" required="required" />
+				<input type="hidden" ng-model="newCheckout.paymentMethodBrand" required="required" />
+
+				<div id="lists">			
+					<h3 class="topcoat-list__header"><i class="fa fa-home"></i> Endereços</h3>
+					<ul id="addressList" class="topcoat-list">
+						<li class="topcoat-list__item" ng-repeat="address in auth.addresses" ng-click="selectAddress(address, $event)">{{address.Name}}</li>
+					</ul>
+
+					<h3 class="topcoat-list__header"><i class="fa fa-credit-card"></i> Meios de pagamento</h3>
+					<ul id="paymentMethodList" class="topcoat-list">
+						<li class="topcoat-list__item" ng-repeat="paymentMethod in paymentMethods" ng-click="selectPaymentMethod(paymentMethod, $event)">{{paymentMethod.Name}}</li>
+					</ul>
+				</div>
+				
+				<div id="shoppingcartinfo">
+					<div><b>Valor total a ser pago:</b> R$ {{shoppingCart.total | number: 2}}</div>
+				</div>
+				
+				<div id="addressinfo" ng-show="address">
+					<div><b>Endereço:</b> {{address.Name}}</div>
+					<div>{{address.Street}}, {{address.Number}}<span ng-show="address.Complement">/{{address.Complement}}</span>, {{address.Neighboorhood}}, {{address.City}} - {{address.State}}</div>
+					<div>CEP: {{address.Zipcode}}</div>
+				</div>
+				
+				<div id="paymentmethodinfo" ng-show="paymentMethod">
+					<div><b>Meio de pagamento:</b> {{paymentMethod.Name}}</div>
+					<div ng-show="paymentMethod.MaxParcels > 1">
+						Parcelas:
+						<input type="number" class="parcels" ng-model="newCheckout.parcels" min="1" max="{{paymentMethod.MaxParcels}}">
+						<small>(Máx.: {{paymentMethod.MaxParcels}})</small>
+					</div>
+					<div ng-show="paymentMethod.MaxParcels <= 1">À vista</div>
+				</div>
+				
+				<section class="center" style="padding: 8px; clear: both">
+					<button type="submit" class="topcoat-button--cta" ng-disabled="checkoutForm.$invalid" ng-click="pay()">Finalizar pagamento</button>
+				</section>
+			</form>
+		</div>
+	</mbl-page-content>
+</mbl-page>

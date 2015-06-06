@@ -1,0 +1,4 @@
+cd mcommerce
+binary
+put ../platforms/android/bin/mcommerce.apk
+quit

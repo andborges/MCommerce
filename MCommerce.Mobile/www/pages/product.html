@@ -1,0 +1,35 @@
+<mbl-page>
+	<div class="topcoat-navigation-bar">
+		<div class="topcoat-navigation-bar__item left quarter">
+			<div class="topcoat-navigation-bar__button" ng-click="mbl.screen.back()"><span class="fa fa-chevron-left"></span> Voltar</div>
+		</div>
+		<div class="topcoat-navigation-bar__item center half">
+			<h1 class="topcoat-navigation-bar__title">Loja Virtual</h1>
+		</div>
+		<div class="topcoat-navigation-bar__item right quarter">
+			<div class="topcoat-navigation-bar__button" data-badge="{{shoppingCart.itens.length}}" ng-class="{badge1: shoppingCart.itens.length > 0}" ng-click="mbl.screen.snapper.open('right')">
+				<span class="fa fa-lg fa-shopping-cart"></span>
+				<span class="fa fa-chevron-right"></span>
+			</div>
+		</div>
+	</div>
+
+	<mbl-page-content>
+		<div class="topcoat-list__container" ng-show="ready">
+			<div>
+				<h3 class="topcoat-list__header">
+					<div class="center"><h3>Loja: {{product.StoreName}}</h3></div>
+					<div>{{product.Name}}</div>
+				</h3>
+				<ul class="topcoat-list">
+					<li class="topcoat-list__item center"><div class="fa fa-3x fa-barcode"></div></li>
+					<li class="topcoat-list__item">{{product.Description}}</li>
+					<li class="topcoat-list__item"><div class="productPrice">R$ {{product.Price}}</div></li>
+				</ul>
+				<section class="center" style="padding: 8px">
+					<button class="topcoat-button--cta" ng-click="shoppingCart.addItem(product)">Adicionar ao carrinho de compras</button>
+				</section>
+			</div>
+		</div>
+	</mbl-page-content>
+</mbl-page>

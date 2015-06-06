@@ -1,0 +1,97 @@
+﻿@using MCommerce.Application.Resources
+
+@model MCommerce.Web.Models.ProductViewModel
+
+@{
+    ViewBag.Title = Labels.ProductDetails;
+}
+
+<h2>@Model.Name</h2>
+
+<div>
+    <h4>@Labels.ProductDetails</h4>
+    <hr />
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Sku)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sku)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+        
+        <dt>
+            @Labels.QRCode
+        </dt>
+        
+        <dd>
+            <img src="@Url.Action("Index", "Code", new { id = Model.Code })" />
+        </dd>
+    </dl>
+</div>
+
+<div style="height: 40px">
+    @Html.ActionLink(Labels.Back, "Index") |
+    
+    @Html.ActionLink(Labels.Edit, "Edit", new { id = Model.Id }) |
+
+    <div class="delete-section" style="display: inline-block">
+        <a class="delete-link" href="@Url.Action("Delete", new { id = Model.Id })">@Labels.Delete</a>
+
+        @using (Html.BeginForm("Delete", "Product", FormMethod.Post, new { style = "display: none" }))
+        {
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@Model.Id" />
+            <input type="submit" class="btn btn-primary" value="@Labels.DeleteConfirmation" />
+        }
+    </div>
+</div>

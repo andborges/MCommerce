@@ -1,0 +1,66 @@
+<mbl-page>
+	<div class="topcoat-navigation-bar">
+		<div class="topcoat-navigation-bar__item left quarter">
+			<div class="topcoat-navigation-bar__button" ng-click="mbl.screen.back()"><span class="fa fa-chevron-left"></span> Voltar</div>
+		</div>
+		<div class="topcoat-navigation-bar__item center half">
+			<h1 class="topcoat-navigation-bar__title">Loja Virtual</h1>
+		</div>
+		<div class="topcoat-navigation-bar__item right quarter">
+			<div class="topcoat-navigation-bar__button" data-badge="{{shoppingCart.itens.length}}" ng-class="{badge1: shoppingCart.itens.length > 0}" ng-click="mbl.screen.snapper.open('right')">
+				<span class="fa fa-lg fa-shopping-cart"></span>
+				<span class="fa fa-chevron-right"></span>
+			</div>
+		</div>
+	</div>
+
+	<mbl-page-content>
+		<div id="register">
+			<h4>Preencha os campos abaixo para criar a sua conta:</h4>
+
+			<div id="authMessage">{{message}}</div>
+			
+			<form name="registerForm" ng-submit="register()" novalidate>
+				<div class="input-holder">
+					<input type="text" name="name" ng-model="newUser.name" class="topcoat-text-input" placeholder="Nome" required="required" />
+					<div class="custom-error" ng-show="registerForm.name.$dirty && registerForm.name.$invalid">
+						<span ng-show="registerForm.name.$error.required">Nome obrigatório.</span>
+					</div>
+				</div>
+
+				<div class="input-holder">
+					<input type="email" name="email" ng-model="newUser.email" class="topcoat-text-input" placeholder="Email" required="required" />
+					<div class="custom-error" ng-show="registerForm.email.$dirty && registerForm.email.$invalid">
+						<span ng-show="registerForm.email.$error.required">Email obrigatório.</span>
+						<span ng-show="registerForm.email.$error.email">Email inválido.</span>
+					</div>
+				</div>
+
+				<div class="input-holder">
+					<input type="text" name="identity" ng-model="newUser.identity" class="topcoat-text-input" placeholder="CPF" required="required" />
+					<div class="custom-error" ng-show="registerForm.identity.$dirty && registerForm.identity.$invalid">
+						<span ng-show="registerForm.identity.$error.required">CPF obrigatório.</span>
+					</div>
+				</div>
+				
+				<div class="input-holder">
+					<input type="password" name="password" ng-model="newUser.password" class="topcoat-text-input" placeholder="Senha" required="required" ng-minlength="6" />
+					<div class="custom-error" ng-show="registerForm.password.$dirty && registerForm.password.$invalid">
+						<span ng-show="registerForm.password.$error.required">Senha obrigatória.</span>
+						<span ng-show="registerForm.password.$error.minlength">Mínimo 6 caracteres.</span>
+					</div>
+				</div>
+				
+				<div class="input-holder">
+					<input type="text" name="devicename" ng-model="newUser.devicename" class="topcoat-text-input" placeholder="Nome do dispositivo. Ex: Celular João, Tablet Trabalho" required="required" ng-minlength="6" />
+					<div class="custom-error" ng-show="registerForm.devicename.$dirty && registerForm.devicename.$invalid">
+						<span ng-show="registerForm.devicename.$error.required">Nome do dispositivo obrigatório.</span>
+						<span ng-show="registerForm.devicename.$error.minlength">Mínimo 6 caracteres.</span>
+					</div>
+				</div>
+
+				<button type="submit" class="topcoat-button--cta" ng-disabled="registerForm.$invalid">Criar conta</button>
+			</form>
+		</div>
+	</mbl-page-content>
+</mbl-page>

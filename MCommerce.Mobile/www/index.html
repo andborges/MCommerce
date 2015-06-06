@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<title>Loja Virtual</title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+		<link rel="stylesheet" href="lib/mobileit/css/topcoat-mobile-light.css">
+		<link rel="stylesheet" href="lib/mobileit/css/angular-mobileitframework.css">
+		<link rel="stylesheet" href="lib/snap.css">
+		<link rel="stylesheet" href="styles/app.css"/>
+		
+		<script type="text/javascript" src="phonegap.js"></script>
+
+		<script src="lib/jquery-1.11.1.min.js"></script>
+		<script src="lib/jquery.linq.min.js"></script>
+		<script src="lib/angular/angular.min.js"></script>
+		<script src="lib/angular/angular-route.min.js"></script>
+		<script src="lib/angular/angular-animate.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="lib/mobileit/js/angular-mobileitframework.js"></script>
+		
+		<script type="text/javascript" charset="utf-8" src="lib/iscroll.js"></script>
+		<script type="text/javascript" charset="utf-8" src="lib/fastclick.js"></script>
+		<script type="text/javascript" charset="utf-8" src="lib/snap.js"></script>
+		
+		<script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/routes.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/controllers.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/repositories.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/services.js"></script>
+		
+		<script type="text/javascript">			
+			document.addEventListener('deviceready', function onDeviceReady() {
+				// console.log(window.device.uuid);
+				// console.log(window.device.name);
+				// console.log(window.device.model);
+				// console.log(window.device.platform);
+
+				angular.bootstrap(document, ['mcommerceApp']);
+			}, false);
+		</script>
+    </head>
+    <body ng-cloak>
+		<mbl-slide-menu>
+			<mbl-slide-menu-left>
+				<!-- <mbl-slide-menu-content> -->
+					<div>
+						<div id="userMenu" ng-show="sessionId">
+							<h3 class="topcoat-list__header"><i class="fa fa-2x fa-user"></i> <span>Olá, {{auth.name}}</span></h3>
+							<ul class="topcoat-list">
+								<li class="topcoat-list__item" ng-click="mbl.screen.go('/paymentMethod')">
+									<div><i class="fa fa-credit-card"></i> Meios de pagamento</div>
+								</li>
+								<li class="topcoat-list__item" ng-click="mbl.screen.go('/address')">
+									<div><i class="fa fa-home"></i> Endereços</div>
+								</li>
+								<li class="topcoat-list__item" ng-click="auth.logoff()">
+									<div><i class="fa fa-sign-out"></i> Sair</div>
+								</li>
+							</ul>
+							<h5 class="center">Dispositivo: {{auth.devicename}}</h5>
+						</div>
+						
+						<div id="userAuth" ng-hide="sessionId">
+							<h4><i class="fa fa-lock"></i> Para visualizar os seus dados:</h4>
+							
+							<button class="topcoat-button--cta" ng-click="auth.show=true">Entrar</button>
+							<br/><br/>
+							ou
+							<br/><br/>
+							<button class="topcoat-button" ng-click="mbl.screen.go('/register')">Criar conta</button>
+						</div>
+					</div>
+				<!-- <mbl-slide-menu-content> -->
+			</mbl-slide-menu-left>
+
+			<mbl-slide-menu-right>
+				<div id="shoppingCart">
+					<h3 class="topcoat-list__header"><i class="fa fa-2x fa-shopping-cart"></i> <span>Seu carrinho de compras</span></h3>
+					<mbl-slide-menu-content>
+						<ul class="topcoat-list">
+							<li ng-repeat="item in shoppingCart.itens" class="topcoat-list__item">
+								<span class="fa pull-left fa-2x fa-barcode"></span>
+								<div class="productInfo">
+									<div>{{item.product.Name}}</div>
+									<div class="productPrice">R$ {{item.product.Price}}</div>
+								</div>
+								<div class="pull-right">
+									<input type="number" class="itemQuantity" ng-model="item.quantity" min="1">
+									<div class="itemRemove" ng-click="shoppingCart.removeItem(item.index)"><span class="fa fa-trash-o"></span></div>
+								</div>
+							</li>
+							<li class="topcoat-list__item" ng-hide="shoppingCart.total > 0"><b>Sem itens no carrinho</b></li>
+							<li class="topcoat-list__item" ng-show="shoppingCart.total > 0">Total: R$ {{shoppingCart.total | number: 2}}</li>
+						</ul>
+
+						<section class="center" style="padding: 8px">
+							<button class="topcoat-button--cta" ng-show="shoppingCart.total > 0" ng-click="shoppingCart.checkout()">Pagar</button>
+						</section>
+					</mbl-slide-menu-content>
+				</div>
+			</mbl-slide-menu-right>
+		</mbl-slide-menu>
+		
+		<mbl-screen>
+			<div class="topcoat-tab-bar full" style="position: absolute; bottom: 0">
+				<label class="topcoat-tab-bar__item">
+					<button class="topcoat-tab-bar__button full" ng-click="mbl.screen.snapper.open('left')">
+						<i class="fa fa-2x fa-user"></i>
+						<div class="mbl_tab-bar__label">Seus dados</div>
+					</button>
+				</label>
+				<label class="topcoat-tab-bar__item">
+					<button class="topcoat-tab-bar__button full" ng-click="mbl.screen.go('/', true)">
+						<i class="fa fa-2x fa-home"></i>
+						<div class="mbl_tab-bar__label">Home</div>
+					</button>
+				</label>
+				<label class="topcoat-tab-bar__item">
+					<button class="topcoat-tab-bar__button full">
+						<i class="fa fa-2x fa-gear"></i>
+						<div class="mbl_tab-bar__label">Opções</div>
+					</button>
+				</label>
+			</div>
+		</mbl-screen>
+		<mbl-loader>Aguarde...</mbl-loader>
+		
+		<mbl-modal-dialog show="auth.show" width="95%" maxwidth="450px">
+			<div id="userLogin">
+				<h4><i class="fa fa-lock"></i> Por favor informe seu usuário e senha:</h4>
+				<form name="loginForm" ng-submit="auth.login()">
+					<div id="authMessage">{{ auth.message }}</div>
+					
+					<div class="input-holder">
+						<input type="email" name="email" ng-model="auth.email" class="topcoat-text-input" placeholder="Email" required="required" />
+						<div class="custom-error" ng-show="loginForm.email.$dirty && loginForm.email.$invalid">
+							<span ng-show="loginForm.email.$error.required">Email obrigatório.</span>
+							<span ng-show="loginForm.email.$error.email">Email inválido.</span>
+						</div>
+					</div>
+	
+					<div class="input-holder">
+						<input type="password" name="password" ng-model="auth.password" class="topcoat-text-input" placeholder="Senha" required="required" ng-minlength="6" />
+						<div class="custom-error" ng-show="loginForm.password.$dirty && loginForm.password.$invalid">
+							<span ng-show="loginForm.password.$error.required">Senha obrigatória.</span>
+							<span ng-show="loginForm.password.$error.minlength">Mínimo 6 caracteres.</span>
+						</div>
+					</div>
+
+					<button type="submit" class="topcoat-button--cta" ng-disabled="loginForm.$invalid">Entrar</button>
+				</form>
+			</div>
+		</mbl-modal-dialog>
+    </body>
+</html>
+
