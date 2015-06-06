@@ -9,10 +9,10 @@
     <name>MCommerce</name>
 
     <description>
-        Hello World sample application that responds to the deviceready event.
+        MCommerce mobile app.
     </description>
 
-    <author href="http://phonegap.com" email="support@phonegap.com">
+    <author href="http://www.mbl-it.com" email="andre@mbl-it.com">
         Mobile It!
     </author>
 
